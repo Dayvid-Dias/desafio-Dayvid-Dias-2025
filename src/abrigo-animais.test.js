@@ -28,4 +28,19 @@ describe('Abrigo de Animais', () => {
       expect(resultado.lista.length).toBe(4);
       expect(resultado.erro).toBeFalsy();
   });
+  test('deve retornar erro quando houver animais duplicados', () => {
+  const abrigo = new AbrigoAnimais();
+  const resultado = abrigo.encontraPessoas('RATO,BOLA', 'NOVELO', 'Rex,Rex');
+  expect(resultado).toEqual({ erro: 'Animal inválido' });
+});
+test('deve retornar erro quando houver animal inexistente', () => {
+  const abrigo = new AbrigoAnimais();
+  const resultado = abrigo.encontraPessoas('RATO', 'BOLA', 'Rex,Lulu');
+  expect(resultado).toEqual({ erro: 'Animal inválido' });
+});
+test('quando ambos podem adotar o mesmo cão, o animal fica no abrigo', () => {
+  const abrigo = new AbrigoAnimais();
+  const resultado = abrigo.encontraPessoas('RATO,BOLA', 'RATO,BOLA', 'Rex');
+  expect(resultado).toEqual({ lista: ['Rex - abrigo'] });
+});
 });
